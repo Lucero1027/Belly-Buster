@@ -1,6 +1,4 @@
-// performing API call. //
-// returning data. Making a list of results as buttons.// //////////////////////
-// saving variables for use in Leafly API map// 
+
 
 function getBeers() {
   fetch(
@@ -47,7 +45,7 @@ function getBeers() {
         
         var APIName = document.createElement("button");
         APIName.setAttribute("type", "button");
-        APIName.setAttribute("class", "small secondary button");
+        // var link = data[i].website_url;//
         APIName.setAttribute("href", data[i].website_url);
         APIName.textContent = data[i].name;
         APIElBody.appendChild(APIName);
@@ -75,12 +73,7 @@ function getBeers() {
 
 
 
-//we didn't end up using below// 
-
-
-
-
-
+ Adding-button-functionality
 // function getBrewery() {
 //   fetch(
 //     "https://brianiswu-open-brewery-db-v1.p.rapidapi.com/breweries/10-barrel-brewing-co-denver-denver",
@@ -104,18 +97,12 @@ function getBeers() {
 // }
 // getBrewery();
 
-
-
-
-
-//Saving search inputs as an array and then putting in local storage//
-
+=======
 function displayCity() { 
 }
 
 
 //Saving search inputs as an array and then putting in local storage. Adding a button for each history item.//
-
 ////////////////////////////////////////////////////////////////
 
 var city = [];
@@ -134,39 +121,20 @@ submitBtn.onclick = function submitCity() {
 };
 
 
-//creating a button for the recent history results// 
+
 var localHistoryContainer = document.getElementById("localStorage");
 function renderCityHistory() {
   localHistoryContainer.textContent = '';
   for (var i = city.length - 1; i >= 0; i--) {
     var btn = document.createElement("button");
     btn.setAttribute("type", "button");
-    btn.classList.add("history-btn");
-    btn.setAttribute("class", "button large success");
+    btn.classList.add("history-btn", "btn-history");
     btn.setAttribute("data-search", city[i]);
     btn.textContent = city[i];
-    
-    btn.addEventListener("click", resubmitCity);
     localHistoryContainer.appendChild(btn);
   }
 }
-
-
-//creating a function to resubmit based on the city history button/////////////////
-
-function resubmitCity() {
-  event.preventDefault();
-  var searchResult = this.getAttribute("data-search");
-  var displaycityInput = document.getElementById("APIEl");
-  APIEl.innerHTML = "Showing breweries in: " + searchResult;
- function changeCityInput() {
-  cityInput.value = searchResult;
-  
- }
- changeCityInput();
- getBeers();
-}
-
+// end local storage stuff//
 
 
 // working with leaflet api/////
@@ -180,7 +148,7 @@ L.tileLayer(
     id: "mapbox/streets-v11",
     tileSize: 512,
     zoomOffset: -1,
-    accessToken: "pk.eyJ1IjoiaHVtZXMtYW5kcmV3IiwiYSI6ImNrd3B3YmR5eTBlb2gyeHJ1Z2plbWM0b20ifQ.KXg5Wlkn2dco0TxNZN0k-g",
+    accessToken: "pk.eyJ1IjoiYmx1ZWFuZHluIiwiYSI6ImNrd3M0d3AycTEzMDgzMG80M2x0N3UzamcifQ.4QF7f-50GGZpRGTKZUiRvA",
   }
 ).addTo(map);
 
@@ -188,7 +156,6 @@ L.tileLayer(
 
 var popup = L.popup();
 function onMapClick(e) {
-  e.preventDefault();
     popup
         .setLatLng(e.latlng)
         .setContent("You clicked the map at " + e.latlng.toString())
@@ -208,7 +175,7 @@ var mapBoxAPIKey =
 function addPin(latitude, longitude) {
   var marker = L.marker([latitude, longitude]).addTo(map);
  
-  marker.bindPopup("<b>Your brewery!</b>").openPopup();
+  marker.bindPopup("<b>Brewery Name</b><br>Possibly address").openPopup();
 }
 
-addPin();
+addPin(39.7932, -104.9903);
